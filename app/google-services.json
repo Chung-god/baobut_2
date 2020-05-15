@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "189515793411",
+    "firebase_url": "https://baobut-c0b20.firebaseio.com",
+    "project_id": "baobut-c0b20",
+    "storage_bucket": "baobut-c0b20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189515793411:android:224bfba20fc57c126a3a36",
+        "android_client_info": {
+          "package_name": "com.company.baobut2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189515793411-mt9hmti12n5h3eb37qk0ekopt02h3029.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.baobut2",
+            "certificate_hash": "60cf366e3ee8e142c301d1f480a99b9061958df2"
+          }
+        },
+        {
+          "client_id": "189515793411-tv292dl596do082v1uqinjc01o1064f7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd3mig0jKfzwTPkg_95eC3Xt8zz1c7DvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189515793411-tv292dl596do082v1uqinjc01o1064f7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
