@@ -37,8 +37,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                //Toast.makeText(MainActivity.this,"Login",Toast.LENGTH_LONG).show();
-                Intent in = new Intent(MainActivity.this,ChatActivity.class);//화면전환
-                startActivity(in);
+                String stEmail = etId.getText().toString();//입력된 이메일 받아오기
+                String stPassword = etPassword.getText().toString();//입력된 문자열 받아오기
+
+                if(stEmail.isEmpty()){
+                    Toast.makeText(MainActivity.this,"Please insert Email",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(stPassword.isEmpty()){
+                    Toast.makeText(MainActivity.this,"Please insert Password",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                mAuth.signInWithEmailAndPassword(stEmail, stPassword)
+                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    //updateUI(user);
+                                    String stUserEmail = user.getEmail();
+                                    String stUserName = user.getDisplayName();
+                                    Log.d(TAG, "stUserEmail :"+stUserEmail+"stUserName :"+stUserName);//logd
+                                    //성공하면 채팅 화면으로 넘어옴
+                                    Intent in = new Intent(MainActivity.this,ChatActivity.class);//화면전환
+                                    startActivity(in);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(MainActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    //updateUI(null);
+                                }
+                            }
+                        });
             }
         });
 
@@ -81,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    
     //실행했을 때 자동으로 체크
     @Override
     public void onStart() {
