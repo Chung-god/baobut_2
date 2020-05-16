@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    EditText etText;
+    Button btnSend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,9 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { finish(); }
         });
+        btnSend=(Button)findViewById(R.id.btnSend);
+        etText=(EditText)findViewById(R.id.etText);
+
 
             recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -38,6 +45,14 @@ public class ChatActivity extends AppCompatActivity {
             String[] myDataset = {"test1","test2","test3","test4"};
             mAdapter = new MyAdapter(myDataset);
             recyclerView.setAdapter(mAdapter);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stText = etText.getText().toString();
+                Toast.makeText(ChatActivity.this,"Msg: "+stText,Toast.LENGTH_LONG).show();
+            }
+        });
         }
     }
 
