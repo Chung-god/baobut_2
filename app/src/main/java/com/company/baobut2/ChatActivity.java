@@ -10,17 +10,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Hashtable;
+
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     EditText etText;
     Button btnSend;
+    String stEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        stEmail = getIntent().getStringExtra("email");
         Button btnFinish = (Button)findViewById(R.id.btnFinish);
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +60,24 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String stText = etText.getText().toString();
                 Toast.makeText(ChatActivity.this,"Msg: "+stText,Toast.LENGTH_LONG).show();
-            }
-        });
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                //Child 생성
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                String datetime = dateformat.format(c.getTime());
+                System.out.println(datetime);
+
+                DatabaseReference myRef = database.getReference("message").child(datetime);
+
+                Hashtable<String,String> numbers = new Hashtable<String,String>();
+                numbers.put("email",stEmail);
+                numbers.put("text",stText);
+
+                myRef.setValue(numbers);
+                }
+            });
         }
     }
 

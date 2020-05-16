@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                //Toast.makeText(MainActivity.this,"Login",Toast.LENGTH_LONG).show();
-                String stEmail = etId.getText().toString();//입력된 이메일 받아오기
+                final String stEmail = etId.getText().toString();//입력된 이메일 받아오기
                 String stPassword = etPassword.getText().toString();//입력된 문자열 받아오기
 
                 if(stEmail.isEmpty()){
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d(TAG, "stUserEmail :"+stUserEmail+"stUserName :"+stUserName);//logd
                                     //성공하면 채팅 화면으로 넘어옴
                                     Intent in = new Intent(MainActivity.this,ChatActivity.class);//화면전환
+                                    in.putExtra("email",stEmail);//이메일 받기
                                     startActivity(in);
                                 } else {
                                     // If sign in fails, display a message to the user.
