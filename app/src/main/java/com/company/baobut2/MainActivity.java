@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     //실행했을 때 자동으로 체크
     @Override
     public void onStart() {
