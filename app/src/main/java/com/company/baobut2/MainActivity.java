@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                     String stUserName = user.getDisplayName();
                                     Log.d(TAG, "stUserEmail :"+stUserEmail+"stUserName :"+stUserName);//logd
                                     //성공하면 채팅 화면으로 넘어옴
-                                    Intent in = new Intent(MainActivity.this,ChatActivity.class);//화면전환
+                                    Intent in = new Intent(MainActivity.this,TabActivity.class);//화면전환
                                     in.putExtra("email",stEmail);//이메일 받기
                                     startActivity(in);
                                 } else {
