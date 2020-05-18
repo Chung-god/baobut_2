@@ -3,7 +3,9 @@ package com.company.baobut2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
                                     String stUserEmail = user.getEmail();
                                     String stUserName = user.getDisplayName();
                                     Log.d(TAG, "stUserEmail :"+stUserEmail+"stUserName :"+stUserName);//logd
+
+                                    //Shared Preferences
+                                    SharedPreferences sharedPref = getSharedPreferences("shared",Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putString("email",stUserEmail);//Email 을 저장하기 때문에 String
+                                    editor.commit();
+
                                     //성공하면 채팅 화면으로 넘어옴
                                     Intent in = new Intent(MainActivity.this,TabActivity.class);//화면전환
                                     in.putExtra("email",stEmail);//이메일 받기

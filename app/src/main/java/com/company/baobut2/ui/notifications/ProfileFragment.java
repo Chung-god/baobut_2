@@ -1,7 +1,9 @@
 package com.company.baobut2.ui.notifications;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -40,6 +42,7 @@ public class ProfileFragment extends Fragment {
     private NotificationsViewModel notificationsViewModel;
     ImageView ivUser;
     private StorageReference mStorageRef;
+    String stEmail;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
@@ -53,9 +56,13 @@ public class ProfileFragment extends Fragment {
 //            }
 //       });
 
+
+        //공유 환경 설정 읽기
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("shared",Context.MODE_PRIVATE);
+        stEmail = sharedPref.getString("email","");
+        Log.d(TAG, "stEmail"+stEmail);
         //앱권한 코드 복사
         // Here, thisActivity is the current activity
-
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -112,7 +119,7 @@ public class ProfileFragment extends Fragment {
             }
 
            // Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-            StorageReference riversRef = mStorageRef.child("users/rivers.jpg");
+            StorageReference riversRef = mStorageRef.child("users").child(stEmail).child("profile.jpg");
 
             riversRef.putFile(image)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
