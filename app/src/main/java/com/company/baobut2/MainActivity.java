@@ -3,6 +3,7 @@ package com.company.baobut2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                     String stUserName = user.getDisplayName();
                                     Log.d(TAG, "stUserEmail :"+stUserEmail+"stUserName :"+stUserName);//logd
 
-                                    //Shared Preferences
+                                    //Shared Preferen.,mfaDG.,, ces
                                     SharedPreferences sharedPref = getSharedPreferences("shared",Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("email",stUserEmail);//Email 을 저장하기 때문에 String
@@ -99,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent register = new Intent(MainActivity.this,SignUpActivity.class);
+                startActivity(register);
+
+                /*
                 String stEmail = etId.getText().toString();//입력된 이메일 받아오기
                 String stPassword = etPassword.getText().toString();//입력된 문자열 받아오기
 
@@ -110,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Please insert Password",Toast.LENGTH_LONG).show();
                     return;
                 }
+
+
                 //Toast.makeText(MainActivity.this,"Email : "+stEmail+"Password : "+stPassword,Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(stEmail, stPassword)
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                                 // ...
                             }
                         });
+                */
             }
         });
     }
