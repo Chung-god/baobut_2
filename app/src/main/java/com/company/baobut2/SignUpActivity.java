@@ -29,15 +29,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG  ="SignUpActivity";
     EditText etId,etPassword;
+    String region;
+    Integer movie = 0;
+    Integer computer = 0;
+    Integer song = 0;
+    Integer social = 0;
+    Integer work = 0;
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
     FirebaseDatabase database;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
@@ -50,6 +56,58 @@ public class SignUpActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                region = (String) parent.getItemAtPosition(position);
+                System.out.println("Region : "+region);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+         CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkMovie) ;
+         checkBox1.setOnClickListener(new CheckBox.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                movie = 1;
+             }
+         });
+
+         CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkComputer) ;
+         checkBox2.setOnClickListener(new CheckBox.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 computer = 1;
+             }
+         });
+
+         CheckBox checkBox3 = (CheckBox) findViewById(R.id.checkSong) ;
+         checkBox3.setOnClickListener(new CheckBox.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 song = 1;
+             }
+         });
+
+         CheckBox checkBox4 = (CheckBox) findViewById(R.id.checkSocial) ;
+         checkBox4.setOnClickListener(new CheckBox.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 social = 1;
+             }
+         });
+         CheckBox checkBox5 = (CheckBox) findViewById(R.id.checkWork) ;
+         checkBox5.setOnClickListener(new CheckBox.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 work = 1;
+             }
+         });
 
 
 
@@ -64,7 +122,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String stEmail = etId.getText().toString();//입력된 이메일 받아오기
-                String stPassword = etPassword.getText().toString();//입력된 문자열 받아오기
+                String stPassword =
+                        etPassword.getText().toString();//입력된 문자열 받아오기
 
                 if(stEmail.isEmpty()){
                     Toast.makeText(SignUpActivity.this,"Please insert Email",Toast.LENGTH_LONG).show();
@@ -75,10 +134,10 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                
 
-                //Toast.makeText(MainActivity.this,"Email : "+stEmail+"Password : "+stPassword,Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.VISIBLE);
+
+                //Toast.makText(MainActivity.this,"Email : "+stEmail+"Password : "+stPassword,Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(stEmail, stPassword)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -95,8 +154,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                                     DatabaseReference myRef = database.getReference("users").child(user.getUid());
 
-                                    Hashtable<String,String> numbers = new Hashtable<String,String>();
+                                    Hashtable<String,Object> numbers = new Hashtable<>();
                                     numbers.put("email",user.getEmail());
+                                    numbers.put("region",region);
+                                    numbers.put("movie",movie);
+                                    numbers.put("computer",computer);
+                                    numbers.put("song",song);
+                                    numbers.put("social",social);
+                                    numbers.put("work",work);
 
                                     myRef.setValue(numbers);
                                     Toast.makeText(SignUpActivity.this,"Register Success",Toast.LENGTH_LONG).show();
