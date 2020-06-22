@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.baobut2.ui.dashboard.DashboardFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -110,7 +111,12 @@ public class SignUpActivity extends AppCompatActivity {
          });
 
 
+         //나의 정보 전송하기
+         UserInfo userInfo = new UserInfo(region, new Integer[]{movie, computer, song, social, work});
+         Intent intent = new Intent(getApplicationContext(), DashboardFragment.class);
+         intent.putExtra("User",userInfo);
 
+         //startActivity(intent);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();//데이터 베이스 초기화
@@ -133,6 +139,8 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this,"Please insert Password",Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                Integer[] interset = {movie, computer, song, social,work};
 
 
 
