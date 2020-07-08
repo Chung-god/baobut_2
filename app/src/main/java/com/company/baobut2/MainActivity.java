@@ -148,4 +148,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
     }
+
+    public void insrtIntoDb(View v){
+
+    }
 }
